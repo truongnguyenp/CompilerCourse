@@ -622,7 +622,7 @@ int main()
         }
         else if (choice == 2)
         {
-            printf("\nNhap x: ");
+            printf("\nInput x: ");
             cin>>x;
             x+='\0';
         }
