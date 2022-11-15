@@ -622,8 +622,9 @@ int main()
         }
         else if (choice == 2)
         {
-            printf("\nInput x: ");
-            gets(x);
+            printf("\nNhap x: ");
+            cin>>x;
+            x+='\0';
         }
         lexical_analysis(x);
     }
