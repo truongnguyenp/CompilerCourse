@@ -622,10 +622,9 @@ int main()
         }
         else if (choice == 2)
         {
-            printf("\nNhap x: ");
+            printf("\nInput x: ");
             gets(x);
         }
-		cout<<x;
         lexical_analysis(x);
     }
 
