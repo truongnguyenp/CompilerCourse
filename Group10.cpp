@@ -5,9 +5,9 @@
 #include <string.h>
 #include <fstream>
 using namespace std;
-const int ERROR_STATE = 999;
 
-const int UNPREDICTABLE = 1000;
+const int ERROR_STATE = 999;
+const int KHONG_DOAN_NHAN = 1000;
 typedef int state;
 typedef char *attri;
 typedef char *token;
@@ -283,6 +283,7 @@ void search_token(const char *x, unsigned int &i, attri tt, token tk)
 
     while (i <= strlen(x) && (!stop))
     {
+
         c = readchar(x, i);
         switch (s)
         {
@@ -449,7 +450,7 @@ void search_token(const char *x, unsigned int &i, attri tt, token tk)
                 s = 38;
             else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
                 s = 37;
-            else if (c = '.')
+            else if (c ='.')
                 s = 32;
             else
                 s = 39;
@@ -534,7 +535,7 @@ void search_token(const char *x, unsigned int &i, attri tt, token tk)
             if (c != ' ')
             {
                 catchar_in_token(c, tk);
-                strcpy(tt, atrribute(UNPREDICTABLE));
+                strcpy(tt, atrribute(KHONG_DOAN_NHAN));
             }
             else
             {
@@ -544,17 +545,17 @@ void search_token(const char *x, unsigned int &i, attri tt, token tk)
             i++;
         }
         else if (start_state(s))
-            ;
+            ; // bđ
         else if (nostar_end_state(s))
-        {
+        { // trang thai ket thuc ko sao
             catchar_in_token(c, tk);
-            i = i + 1;
+            i = i + 1; // tiep
             stop = 1;
             // strcpy(tt,atrribute(s));
         }
         else if (star_end_state(s))
         {
-            // strcpy(tt,atrribute(s));
+            // strcpy(tt,atrribute(s));    // ket thuc co sao
             stop = 1;
             // i++;
         }
@@ -573,21 +574,21 @@ void save_token_and_attribute(token tk, attri a)
 {
     if (*tk != '\0')
     {
-        for (int i = 0; i < strlen(tk); i++)
-            printf("%c", *(tk + i));
-        printf("      ");
-        for (int i = 0; i < strlen(a); i++)
-            printf("%c", *(a + i));
-        printf("\n");
+    for (int i = 0; i < strlen(tk); i++)
+        printf("%c", *(tk + i));
+    printf("      ");
+    for (int i = 0; i < strlen(a); i++)
+        printf("%c", *(a + i));
+    printf("\n");
     }
 }
 
 // bo phan tich tu vung
 void lexical_analysis(char *x)
 {
-    char newToken[256];
+    char ml[256];
     char m[256];
-    token tk = newToken;
+    token tk = ml;
     attri a = m;
     unsigned int i = 0;
     do
@@ -603,16 +604,14 @@ int main()
 {
     char z[256];
     char *x = z;
-    // int k;
     while (true)
     {
         int choice;
-        printf("Input source: 1.File 2.Console: ");
-        cin >> choice;
+        printf("\n1.File\t\t\t2.Console \nInput source: ");
+        cin >> choice; fflush(stdin);
         if (choice == 1)
         {
-            char FILENAME[100];
-			
+            char FILENAME[100];			
             cout << "Input filename: ";
             cin >> FILENAME;
             ifstream ReadFile;
@@ -622,12 +621,12 @@ int main()
         }
         else if (choice == 2)
         {
-            printf("\nInput x: ");
-            cin>>x;
-            x+='\0';
+            printf("\nInput x: "); fflush(stdin);
+            gets(x); fflush(stdin);
         }
         lexical_analysis(x);
     }
-
+    
+    
     return 0;
 }
