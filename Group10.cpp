@@ -7,7 +7,7 @@
 using namespace std;
 
 const int ERROR_STATE = 999;
-const int KHONG_DOAN_NHAN = 1000;
+const int UNPREDICTABLE = 1000;
 typedef int state;
 typedef char *attri;
 typedef char *token;
@@ -441,7 +441,6 @@ void search_token(const char *x, unsigned int &i, attri tt, token tk)
             {
                 s = 32;
             }
-
             else
                 s = 43;
             break;
@@ -477,7 +476,7 @@ void search_token(const char *x, unsigned int &i, attri tt, token tk)
             else
                 s = 35;
             break;
-        //
+        
         case 47:
             if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
                 s = 48;
@@ -535,7 +534,7 @@ void search_token(const char *x, unsigned int &i, attri tt, token tk)
             if (c != ' ')
             {
                 catchar_in_token(c, tk);
-                strcpy(tt, atrribute(KHONG_DOAN_NHAN));
+                strcpy(tt, atrribute(UNPREDICTABLE));
             }
             else
             {
@@ -545,17 +544,17 @@ void search_token(const char *x, unsigned int &i, attri tt, token tk)
             i++;
         }
         else if (start_state(s))
-            ; // bđ
+            ; 
         else if (nostar_end_state(s))
-        { // trang thai ket thuc ko sao
+        { 
             catchar_in_token(c, tk);
-            i = i + 1; // tiep
+            i = i + 1; 
             stop = 1;
             // strcpy(tt,atrribute(s));
         }
         else if (star_end_state(s))
         {
-            // strcpy(tt,atrribute(s));    // ket thuc co sao
+            // strcpy(tt,atrribute(s)); 
             stop = 1;
             // i++;
         }
@@ -563,7 +562,6 @@ void search_token(const char *x, unsigned int &i, attri tt, token tk)
         {
             catchar_in_token(c, tk);
             i = i + 1;
-            // c = readchar(x,i);
         }
     }
     strcpy(tt, atrribute(s));
@@ -626,7 +624,5 @@ int main()
         }
         lexical_analysis(x);
     }
-    
-    
     return 0;
 }
